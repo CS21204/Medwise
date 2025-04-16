@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: medwise-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: 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
+        sync: false
