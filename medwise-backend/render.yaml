@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: medwise-api
+    runtime: python  # Fixed from 'env' to 'runtime'
+    plan: free
+    region: oregon  # Optional but recommended for consistency
+    buildCommand: |
+      pip install --upgrade pip &&
+      pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: API_USERNAME
+        value: your_admin_username_here  # Hardcoded or use Render dashboard
+      - key: API_PASSWORD
+        value: your_strong_password_here
+      - key: OPENAI_API_KEY
+        sync: false  # Will be set manually in Render dashboard
+    healthCheckPath: /  # Basic health check endpoint
+    autoDeploy: true  # Optional: auto-deploy on git push
